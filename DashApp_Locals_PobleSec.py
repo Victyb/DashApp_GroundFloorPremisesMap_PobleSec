@@ -6,8 +6,9 @@ import plotly.express as px
 #Upload data
 df = pd.read_csv(r"C:\Users\victor.bousquet\OneDrive - Barcelona Activa\Documentos\CaP\filtered_poble_sec_data2.csv")
 
-#Start the app
+#Start the app and server
 app = dash.Dash(__name__)
+server = app.server
 
 #Unique values for filters 
 sectors = sorted(df['Nom_Sector_Activitat'].dropna().unique())
@@ -103,4 +104,5 @@ if __name__ == '__main__':
         app.run(debug=True, use_reloader=False)
     except KeyboardInterrupt:
         print("App detenida manualmente. Cerrando de forma segura...")
+
 
