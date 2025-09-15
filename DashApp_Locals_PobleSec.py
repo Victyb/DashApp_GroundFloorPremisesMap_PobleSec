@@ -3,18 +3,18 @@ import dash
 from dash import dcc, html, Input, Output
 import plotly.express as px
 
-# Cargar datos
+#Upload data
 df = pd.read_csv(r"C:\Users\victor.bousquet\OneDrive - Barcelona Activa\Documentos\CaP\filtered_poble_sec_data2.csv")
 
-# Inicializar la app
+#Start the app
 app = dash.Dash(__name__)
 
-# Valores únicos para los filtros
+#Unique values for filters 
 sectors = sorted(df['Nom_Sector_Activitat'].dropna().unique())
 groups = sorted(df['Nom_Grup_Activitat'].dropna().unique())
 activities = sorted(df['Nom_Activitat'].dropna().unique())
 
-# Determinar el layout
+#Definition of the app layout
 app.layout = html.Div([
     html.H2("Mapa de locals en planta baixa destinats a activitat econòmica al Poble Sec"),
 
@@ -54,7 +54,7 @@ app.layout = html.Div([
     dcc.Graph(id='map-graph')
 ])
 
-# Callback para actualizar el mapa
+#Callback for updating the map in relation to currently applied filters
 @app.callback(
     Output('map-graph', 'figure'),
     Input('sector-filter', 'value'),
@@ -97,9 +97,10 @@ def update_map(selected_sectors, selected_groups, selected_activities):
 
     return fig
 
-# Ejecutar la app con manejo de interrupciones (en consola Ctrl+C)
+#Kill order to ensure control from the console (Ctrl+C)
 if __name__ == '__main__':
     try:
         app.run(debug=True, use_reloader=False)
     except KeyboardInterrupt:
         print("App detenida manualmente. Cerrando de forma segura...")
+
